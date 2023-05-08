@@ -62,7 +62,7 @@ operantButtons.forEach((button) => {
     let temp = button.textContent;
 
     if (temp === "=") {
-      const result = operate(y, operant, x);
+      const result = Math.round(operate(y, operant, x) * 100) / 100;
 
       if (checkVar(result) && checkVar(x)) {
         if (x === 0 && operant === "/") {
@@ -77,11 +77,12 @@ operantButtons.forEach((button) => {
         }
       }
     } else {
-      const result = operate(y, operant, x);
+      const result = Math.round(operate(y, operant, x) * 100) / 100;
       if (completed) {
         oldDisplay.textContent = y + operant;
         display.textContent = "";
         x = null;
+        completed = false;
       }
       if (checkVar(result) && checkVar(x)) {
         if (x === 0 && operant === "/") {
