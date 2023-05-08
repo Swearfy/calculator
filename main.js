@@ -61,14 +61,9 @@ operantButtons.forEach((button) => {
   button.addEventListener("click", () => {
     let temp = button.textContent;
 
-    if (!y) {
-      y = x;
-    }
-
-    if (x === 0 && y === 0) {
-      oldDisplay.textContent = y;
-      return;
-    }
+    // if (!y) {
+    //   y = x;
+    // }
 
     if (temp === "=") {
       const result = operate(y, operant, x);
@@ -84,8 +79,11 @@ operantButtons.forEach((button) => {
         operant = temp;
         oldDisplay.textContent = result + operant;
         y = result;
+        x = null;
         display.textContent = "";
       } else {
+        y = x;
+        x = null;
         operant = temp;
         oldDisplay.textContent = y + temp;
         display.textContent = "";
