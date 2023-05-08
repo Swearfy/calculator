@@ -80,6 +80,7 @@ operantButtons.forEach((button) => {
       const result = Math.round(operate(y, operant, x) * 100) / 100;
       if (completed) {
         oldDisplay.textContent = y + operant;
+        y = parseFloat(display.textContent);
         display.textContent = "";
         x = null;
 
