@@ -7,6 +7,7 @@ const display = document.getElementById("display");
 const oldDisplay = document.getElementById("oldDisplay");
 
 const clearBtn = document.getElementById("clear");
+const del = document.getElementById("del");
 
 function add(x, y) {
   return x + y;
@@ -64,6 +65,11 @@ operantButtons.forEach((button) => {
       y = x;
     }
 
+    if (x === 0 && y === 0) {
+      oldDisplay.textContent = y;
+      return;
+    }
+
     if (temp === "=") {
       const result = operate(y, operant, x);
       if (result && x) {
@@ -89,6 +95,10 @@ operantButtons.forEach((button) => {
 });
 
 clearBtn.addEventListener("click", () => clear());
+
+del.addEventListener("click", () => {
+  display.textContent = display.textContent.toString().slice(0, -1);
+});
 
 function clear() {
   x = null;
