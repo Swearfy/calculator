@@ -63,7 +63,6 @@ operantButtons.forEach((button) => {
 
     if (temp === "=") {
       const result = operate(y, operant, x);
-      console.log(x);
 
       if (checkVar(result) && checkVar(x)) {
         if (x === 0 && operant === "/") {
