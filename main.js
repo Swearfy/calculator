@@ -82,6 +82,7 @@ operantButtons.forEach((button) => {
         oldDisplay.textContent = y + operant;
         display.textContent = "";
         x = null;
+
         completed = false;
       }
       if (checkVar(result) && checkVar(x)) {
@@ -89,7 +90,6 @@ operantButtons.forEach((button) => {
           clear();
           display.textContent = "FUck you";
         } else {
-          operant = temp;
           oldDisplay.textContent = result + operant;
           y = result;
           x = null;
@@ -101,11 +101,11 @@ operantButtons.forEach((button) => {
         }
         if (checkVar(x)) {
           y = x;
-          x = null;
-          operant = temp;
-          oldDisplay.textContent = y + temp;
-          display.textContent = "";
         }
+        operant = temp;
+        oldDisplay.textContent = y + operant;
+        x = null;
+        display.textContent = "";
       }
     }
   });
