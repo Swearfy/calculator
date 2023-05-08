@@ -63,25 +63,37 @@ operantButtons.forEach((button) => {
 
     if (temp === "=") {
       const result = operate(y, operant, x);
-      if (result && x) {
-        display.textContent = result;
-        oldDisplay.textContent = y + operant + x + "=";
-        x = null;
-        y = result;
+      console.log(x);
+
+      if (checkVar(result) && checkVar(x)) {
+        if (x === 0 && operant === "/") {
+          clear();
+          display.textContent = "Cant";
+        } else {
+          display.textContent = result;
+          oldDisplay.textContent = y + operant + x + "=";
+          x = null;
+          y = result;
+        }
       }
     } else {
       const result = operate(y, operant, x);
-      if (result && x) {
-        operant = temp;
-        oldDisplay.textContent = result + operant;
-        y = result;
-        x = null;
-        display.textContent = "";
+      if (checkVar(result) && checkVar(x)) {
+        if (x === 0 && operant === "/") {
+          clear();
+          display.textContent = "FUck you";
+        } else {
+          operant = temp;
+          oldDisplay.textContent = result + operant;
+          y = result;
+          x = null;
+          display.textContent = "";
+        }
       } else {
         if (!y) {
           y = 0;
         }
-        if (x) {
+        if (checkVar(x)) {
           y = x;
           x = null;
         }
@@ -105,4 +117,12 @@ function clear() {
   operant = null;
   oldDisplay.textContent = "";
   display.textContent = "";
+}
+
+function checkVar(x) {
+  if (x === null || x === undefined || isNaN(x)) {
+    return false;
+  } else {
+    return true;
+  }
 }
