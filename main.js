@@ -123,6 +123,7 @@ function clear() {
   operant = null;
   oldDisplay.textContent = "";
   display.textContent = "";
+  completed = false;
 }
 
 function checkVar(x) {
