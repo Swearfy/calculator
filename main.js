@@ -52,6 +52,9 @@ numbers.forEach((button) => {
       return;
     }
 
+    if (completed) {
+      clear();
+    }
     display.textContent += displayNumber;
     x = parseFloat(display.textContent);
   });
@@ -97,7 +100,7 @@ operantButtons.forEach((button) => {
           display.textContent = "";
         }
       } else {
-        if (!y) {
+        if (!checkVar(y)) {
           y = 0;
         }
         if (checkVar(x)) {
