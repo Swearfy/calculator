@@ -1,3 +1,13 @@
+const numberButtons = document.getElementById("numbers");
+const operants = document.getElementById("operators");
+const operantButtons = operants.querySelectorAll("button");
+const numbers = numberButtons.querySelectorAll("button");
+const equal = document.getElementById("equal");
+const display = document.getElementById("display");
+const oldDisplay = document.getElementById("oldDisplay");
+
+const clearBtn = document.getElementById("clear");
+
 function add(x, y) {
   return x + y;
 }
@@ -31,27 +41,11 @@ function operate(x, operator, y) {
   }
 }
 
-let completed = false;
+let completed;
 let operantPressed = false;
-
-const numberButtons = document.getElementById("numbers");
-const operants = document.getElementById("operators");
-const operantButtons = operants.querySelectorAll("button");
-const numbers = numberButtons.querySelectorAll("button");
-const equal = document.getElementById("equal");
-const display = document.getElementById("display");
-const oldDisplay = document.getElementById("oldDisplay");
-
-const clearBtn = document.getElementById("clear");
 
 numbers.forEach((button) => {
   button.addEventListener("click", () => {
-    if (completed) {
-      display.textContent = "";
-      oldDisplay.textContent = "";
-      completed = false;
-    }
-
     let displayNumber = button.textContent;
     if (displayNumber === "." && display.textContent.includes(".", 0)) {
       return;
@@ -64,41 +58,39 @@ numbers.forEach((button) => {
 
 operantButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    let tempOperant = button.textContent;
+    let temp = button.textContent;
 
-    if (tempOperant === "=") {
-      const result = operate(y, operant, x); // Convert the value to a number
+    if (!y) {
+      y = x;
+    }
 
-      if (result) {
-        const fullEquation = y + operant + x;
-        oldDisplay.textContent = fullEquation;
-
-        document.getElementById("display").textContent = result;
-        completed = true;
-      }
+    if (temp === "=") {
+      const result = operate(y, operant, x);
+      display.textContent = result;
+      x = null;
+      y = result;
     } else {
-      operant = tempOperant;
-      if (operantPressed === true) {
-        y = operate(y, operant, x);
-        oldDisplay.textContent = y + operant;
+      const result = operate(y, operant, x);
+      if (result) {
+        operant = temp;
+        oldDisplay.textContent = result + operant;
+        y = result;
         display.textContent = "";
-        operantPressed = false;
       } else {
-        const fullEquation = display.textContent + operant;
-        oldDisplay.textContent = fullEquation;
+        operant = temp;
+        oldDisplay.textContent = y + temp;
         display.textContent = "";
-        y = x;
-        operantPressed = true;
       }
     }
   });
 });
 
-clearBtn.addEventListener("click", () => {
+clearBtn.addEventListener("click", () => clear());
+
+function clear() {
   x = null;
   y = null;
   operant = null;
   oldDisplay.textContent = "";
   display.textContent = "";
-  operantPressed = false;
-});
+}
