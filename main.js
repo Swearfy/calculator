@@ -47,41 +47,46 @@ const clearBtn = document.getElementById("clear");
 numbers.forEach((button) => {
   button.addEventListener("click", () => {
     if (completed) {
-      display.innerText = "";
-      oldDisplay.innerText = "";
+      display.textContent = "";
+      oldDisplay.textContent = "";
       completed = false;
     }
-    let displayNumber = button.innerText;
-    display.innerText += displayNumber;
-    x = parseFloat(display.innerText);
+
+    let displayNumber = button.textContent;
+    if (displayNumber === "." && display.textContent.includes(".", 0)) {
+      return;
+    }
+
+    display.textContent += displayNumber;
+    x = parseFloat(display.textContent);
   });
 });
 
 operantButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    let tempOperant = button.innerText;
+    let tempOperant = button.textContent;
 
     if (tempOperant === "=") {
       const result = operate(y, operant, x); // Convert the value to a number
 
       if (result) {
         const fullEquation = y + operant + x;
-        oldDisplay.innerText = fullEquation;
+        oldDisplay.textContent = fullEquation;
 
-        document.getElementById("display").innerText = result;
+        document.getElementById("display").textContent = result;
         completed = true;
       }
     } else {
       operant = tempOperant;
       if (operantPressed === true) {
         y = operate(y, operant, x);
-        oldDisplay.innerText = y + operant;
-        display.innerHTML = "";
+        oldDisplay.textContent = y + operant;
+        display.textContent = "";
         operantPressed = false;
       } else {
-        const fullEquation = display.innerText + operant;
-        oldDisplay.innerText = fullEquation;
-        display.innerHTML = "";
+        const fullEquation = display.textContent + operant;
+        oldDisplay.textContent = fullEquation;
+        display.textContent = "";
         y = x;
         operantPressed = true;
       }
@@ -93,6 +98,7 @@ clearBtn.addEventListener("click", () => {
   x = null;
   y = null;
   operant = null;
-  oldDisplay.innerText = "";
-  display.innerText = "";
+  oldDisplay.textContent = "";
+  display.textContent = "";
+  operantPressed = false;
 });
