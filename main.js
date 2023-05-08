@@ -67,8 +67,7 @@ operantButtons.forEach((button) => {
 
     if (temp === "=") {
       const result = operate(y, operant, x);
-      console.log(result);
-      if (result !== undefined && result !== null) {
+      if (result !== undefined && result !== null && x !== null) {
         display.textContent = result;
         oldDisplay.textContent = y + operant + x + "=";
         x = null;
