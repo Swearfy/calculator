@@ -67,6 +67,7 @@ operantButtons.forEach((button) => {
     if (temp === "=") {
       const result = operate(y, operant, x);
       display.textContent = result;
+      oldDisplay.textContent = y + operant + x + "=";
       x = null;
       y = result;
     } else {
