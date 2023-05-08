@@ -42,7 +42,7 @@ function operate(x, operator, y) {
   }
 }
 
-let completed;
+let completed = false;
 let operantPressed = false;
 
 numbers.forEach((button) => {
@@ -69,14 +69,20 @@ operantButtons.forEach((button) => {
           clear();
           display.textContent = "Cant";
         } else {
-          display.textContent = result;
           oldDisplay.textContent = y + operant + x + "=";
-          x = null;
           y = result;
+          x = null;
+          display.textContent = result;
+          completed = true;
         }
       }
     } else {
       const result = operate(y, operant, x);
+      if (completed) {
+        oldDisplay.textContent = y + operant;
+        display.textContent = "";
+        x = null;
+      }
       if (checkVar(result) && checkVar(x)) {
         if (x === 0 && operant === "/") {
           clear();
@@ -95,10 +101,10 @@ operantButtons.forEach((button) => {
         if (checkVar(x)) {
           y = x;
           x = null;
+          operant = temp;
+          oldDisplay.textContent = y + temp;
+          display.textContent = "";
         }
-        operant = temp;
-        oldDisplay.textContent = y + temp;
-        display.textContent = "";
       }
     }
   });
