@@ -94,9 +94,11 @@ operantButtons.forEach((button) => {
           clear();
           display.textContent = "FUck you";
         } else {
+          operant = temp;
           oldDisplay.textContent = result + operant;
           y = result;
           x = null;
+
           display.textContent = "";
         }
       } else {
@@ -119,6 +121,7 @@ clearBtn.addEventListener("click", () => clear());
 
 del.addEventListener("click", () => {
   display.textContent = display.textContent.toString().slice(0, -1);
+  x = display.textContent;
 });
 
 function clear() {
